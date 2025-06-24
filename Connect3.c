@@ -51,6 +51,7 @@ int checkIllegalMove(int position, char gameBoard[3][3])
 		return 1;
 	}
 
+	return 0;
 }
 
 void modifyGameBoard(char player, int position, char gameBoard[3][3])
@@ -61,6 +62,36 @@ void modifyGameBoard(char player, int position, char gameBoard[3][3])
 
 	gameBoard[i][j] = player;
 }
+
+int checkWinner(char player, char gameBoard[3][3])
+{
+	int isWon = 0;
+	
+	//if-else chain checks for all possible horizontal, vertical and diagonal combinations
+	if((gameBoard[0][0] == gameBoard[1][0]) &&(gameBoard[1][0] == gameBoard[2][0]))
+            isWon = 1;
+        else if ((gameBoard[0][1] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][1]))
+            isWon = 1;
+        else if ((gameBoard[0][2] == gameBoard[1][2]) &&(gameBoard[1][2] == gameBoard[2][2]))
+            isWon = 1;
+        else if ((gameBoard[0][0] == gameBoard[0][1]) &&(gameBoard[0][1] == gameBoard[0][2]))
+            isWon = 1;
+        else if ((gameBoard[1][0] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[1][2]))
+            isWon = 1;
+        else if ((gameBoard[2][0] == gameBoard[2][1]) &&(gameBoard[2][1] == gameBoard[2][2]))
+            isWon = 1;
+        else if ((gameBoard[0][0] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][2]))
+            isWon = 1;
+        else if ((gameBoard[0][2] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][0]))
+            isWon = 1;
+
+	if(isWon)
+		printf("Player %c Wins!!!\n", player); 
+
+	return isWon;
+}
+
+
 
 
 int main() {
@@ -109,17 +140,24 @@ int main() {
 		//update the gameBoard
 		modifyGameBoard(player, position, gameBoard);
 		
+		//check if a player won
+		isPlaying = !checkWinner(player, gameBoard);
 
-
-
-
-
-
-
-
-
+		//9 turns and no winner means a draw game
+		if(isPlaying && turns == 9)
+		{
+			printf("Draw Game!\n");
+			isPlaying = 0;		
+		}
+		
+		//reset flags and update turn counter
+		turns++;
+		isIllegal = 0;
 
 	}
+
+	printf("GAME OVER\n");
+	return 0;
 
 
 
