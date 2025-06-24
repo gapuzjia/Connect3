@@ -86,8 +86,10 @@ int checkWinner(char player, char gameBoard[3][3])
             isWon = 1;
 
 	if(isWon)
+	{
+		printGameBoard(gameBoard);
 		printf("Player %c Wins!!!\n", player); 
-
+	}	
 	return isWon;
 }
 
