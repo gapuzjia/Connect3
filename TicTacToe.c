@@ -1,51 +1,26 @@
 #include <stdio.h>
 
-void printGameBoard(char gameBoard[3][3])
+//-----MODIFIED-----adjusted to print 1d array instead
+void printGameBoard(char gameBoard[9])
 {
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < 9; i++)
 	{
-		for(int j = 0; j < 3; j++){
-			printf("%c ", gameBoard[i][j]);
-		}
+		printf("%c ", gameBoard[i]);
 
-		printf("\n");
+		if((i + 1) % 3 == 0)
+		       printf("\n");	
 	}
-
 }
-int getLocation(int position)
-    {
-        int i, j;
-
-        //determine subscripts for row
-        if(position > 6)
-            i = 2;
-        else if (position > 3)
-            i = 1;
-        else
-            i = 0;
-
-        //determine subscripts for column
-        if(i == 0)
-            j = position - 1;
-        else if(i == 1)
-            j = position - 4;
-        else
-            j = position - 7;
-
-        i = i * 10;
-        return i + j;
-    }
 
 
+int checkIllegalMove(int position, char gameBoard[9])
+{	
+	//-----MODIFIED----- no longer need get position function
+	position = position - 1;
 
-int checkIllegalMove(int position, char gameBoard[3][3])
-{
-	int subscripts = getLocation(position);
-        int i = subscripts / 10;
-        int j = subscripts % 10;	
-	
+
 	//check if position is occupied
-	if(gameBoard[i][j] > 57) //using ASCII
+	if(gameBoard[position] > 57) //using ASCII
 	{
 		printf("Spot is already occupied!\n");
 		return 1;
@@ -54,43 +29,42 @@ int checkIllegalMove(int position, char gameBoard[3][3])
 	return 0;
 }
 
-void modifyGameBoard(char player, int position, char gameBoard[3][3])
+void modifyGameBoard(char player, int position, char gameBoard[9])
 {
-	int subscripts = getLocation(position);
-	int i = subscripts / 10;
-	int j = subscripts % 10;
 
-	gameBoard[i][j] = player;
+	//-----MODIFIED----- no longer need get position function
+	position = position - 1;
+	gameBoard[position] = player;
 }
 
-int checkWinner(char player, char gameBoard[3][3])
+//-----MODIFIED----- replace if-else chain with reference 2d array
+int checkWinner(char player, char gameBoard[9])
 {
-	int isWon = 0;
+	int a, b, c;
 	
-	//if-else chain checks for all possible horizontal, vertical and diagonal combinations
-	if((gameBoard[0][0] == gameBoard[1][0]) &&(gameBoard[1][0] == gameBoard[2][0]))
-            isWon = 1;
-        else if ((gameBoard[0][1] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][1]))
-            isWon = 1;
-        else if ((gameBoard[0][2] == gameBoard[1][2]) &&(gameBoard[1][2] == gameBoard[2][2]))
-            isWon = 1;
-        else if ((gameBoard[0][0] == gameBoard[0][1]) &&(gameBoard[0][1] == gameBoard[0][2]))
-            isWon = 1;
-        else if ((gameBoard[1][0] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[1][2]))
-            isWon = 1;
-        else if ((gameBoard[2][0] == gameBoard[2][1]) &&(gameBoard[2][1] == gameBoard[2][2]))
-            isWon = 1;
-        else if ((gameBoard[0][0] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][2]))
-            isWon = 1;
-        else if ((gameBoard[0][2] == gameBoard[1][1]) &&(gameBoard[1][1] == gameBoard[2][0]))
-            isWon = 1;
-
-	if(isWon)
+	int winningCombos[8][3] = {
+	      	{0,1,2}, {3,4,5}, {6,7,8},
+	       	{0,3,6}, {1,4,7}, {2,5,8},
+	       	{0,4,8}, {2,4,6}
+	};
+	
+	for(int i = 0; i < 8; i++)
 	{
-		printGameBoard(gameBoard);
-		printf("Player %c Wins!!!\n", player); 
-	}	
-	return isWon;
+		a = winningCombos[i][0];
+		b = winningCombos[i][1];
+		c = winningCombos[i][2];
+
+		if(gameBoard[a] == gameBoard[b] && gameBoard[b] == gameBoard[c])
+		{
+			
+			printGameBoard(gameBoard);
+			printf("Player %c Wins!!!\n", player);
+		  	return 1;	
+		}
+	}
+
+	//fall through means return 0 (no winner)
+	return 0;
 }
 
 
@@ -106,14 +80,14 @@ int main() {
 
 	//tracks number of turns, odd is X, even is O
 	int turns = 1; 
+	
+	//-----MODIFIED----- scratch the 2d array, implement with 1d array instead
+	char gameBoard[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-	char gameBoard [3][3] = {
-		{'1' ,'2', '3'},
-		{'4', '5', '6'},
-		{'7', '8', '9'}
-	};
 
-	printf("Connect 3: \n");
+
+
+	printf("TicTacToe: \n");
 	
 	//gameplay starts here
 	while(isPlaying)
