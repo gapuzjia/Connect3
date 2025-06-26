@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 
 //-----MODIFIED-----adjusted to print 1d array instead
@@ -132,18 +133,6 @@ int main() {
 
 	printf("GAME OVER\n");
 	return 0;
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
