@@ -6,9 +6,8 @@ void printGameBoard(char gameBoard[9])
 	for(int i = 0; i < 9; i++)
 	{
 		printf("%c ", gameBoard[i]);
+		printf("%s", (i + 1) % 3 == 0 ? "\n" : "");
 
-		if((i + 1) % 3 == 0)
-		       printf("\n");	
 	}
 }
 
@@ -20,13 +19,10 @@ int checkIllegalMove(int position, char gameBoard[9])
 
 
 	//check if position is occupied
-	if(gameBoard[position] > 57) //using ASCII
-	{
-		printf("Spot is already occupied!\n");
-		return 1;
-	}
+	return (gameBoard[position] > 57) ? (printf("Spot is already occupied!\n"), 1) : 0;
 
-	return 0;
+
+	
 }
 
 void modifyGameBoard(char player, int position, char gameBoard[9])
@@ -96,12 +92,7 @@ int main() {
 	{
 
 		//determine who's turn it is
-		
-		if(turns % 2 != 0)
-			player = 'X';
-		else
-			player = 'O';
-
+		(turns % 2 != 0) ? (player = 'X') : (player = 'O');
 
 		//print gameBoard
 		printGameBoard(gameBoard);
