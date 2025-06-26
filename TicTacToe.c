@@ -113,11 +113,8 @@ int main() {
 		isPlaying = !checkWinner(player, gameBoard);
 
 		//9 turns and no winner means a draw game
-		if(isPlaying && turns == 9)
-		{
-			printf("Draw Game!\n");
-			isPlaying = 0;		
-		}
+		(isPlaying && turns == 9) ? (printf("Draw Game!\n")), isPlaying = 0 : (void)0;
+
 		
 		//reset flags and update turn counter
 		turns++;
