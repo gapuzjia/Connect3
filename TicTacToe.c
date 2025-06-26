@@ -42,17 +42,20 @@ int checkWinner(char player, char gameBoard[9])
 {
 	int a, b, c;
 	
-	int winningCombos[8][3] = {
-	      	{0,1,2}, {3,4,5}, {6,7,8},
-	       	{0,3,6}, {1,4,7}, {2,5,8},
-	       	{0,4,8}, {2,4,6}
+	int winningCombos[24] ={
+
+		0, 1, 2, 3, 4, 5, 6, 7, 8,
+		0, 3, 6, 1, 4, 7, 2, 5, 8,
+		6, 4, 2, 0, 4, 8
 	};
 	
-	for(int i = 0; i < 8; i++)
+	//winning combos are grouped into 3's
+	//skip count and check by groups of 3
+	for(int i = 0; i < 24; i+=3)
 	{
-		a = winningCombos[i][0];
-		b = winningCombos[i][1];
-		c = winningCombos[i][2];
+		a = winningCombos[i];
+		b = winningCombos[i + 1];
+		c = winningCombos[i + 2];
 
 		if(gameBoard[a] == gameBoard[b] && gameBoard[b] == gameBoard[c])
 		{
