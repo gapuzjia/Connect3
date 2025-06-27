@@ -50,7 +50,7 @@ void modifyGameBoard(char player, int position, GameBoard *gameBoard)
 {
 	
 	//-----MODIFIED-----revised getPosition function, now implemented on a struct	
-	char *structPosition = getPosition(GameBoard, position); 
+	char *structPosition = getPosition(gameBoard, position); 
 
 
 	*structPosition = player;
@@ -71,6 +71,7 @@ int checkWinner(char player, GameBoard gameBoard)
 		(gameBoard.pos7 == gameBoard.pos5 && gameBoard.pos5 == gameBoard.pos3))
 
 		{
+			printGameBoard(gameBoard);
 			printf("Player %c Wins!!!\n", player);
 			return 1;
 		}
@@ -96,7 +97,7 @@ int main() {
 	//char gameBoard[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
 	//create instance of a gameboard
-	GameBoard gameboard = {'1','2','3','4','5','6','7','8','9'};
+	GameBoard gameBoard = {'1','2','3','4','5','6','7','8','9'};
 
 
 	printf("TicTacToe: \n");
@@ -118,10 +119,10 @@ int main() {
 			scanf("%d", &position);
 			printf("\n");
 
-		}while(checkIllegalMove(position, gameBoard));
+		}while(checkIllegalMove(position, &gameBoard));
 
 		//update the gameBoard
-		modifyGameBoard(player, position, gameBoard);
+		modifyGameBoard(player, position, &gameBoard);
 		
 		//check if a player won
 		isPlaying = !checkWinner(player, gameBoard);
