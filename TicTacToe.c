@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 //-----ADDED-----replace 1d array, implement with struct instead
 typedef struct {
@@ -41,8 +42,7 @@ int checkIllegalMove(int position, GameBoard *gameBoard)
 	
 
 	//check if position is occupied
-	//use ASCII value 57 to check if the char is not a digit (i.e in its place is an 'X' or 'O')
-	return (*structPosition > 57) ? (printf("Spot is already occupied!\n"), 1) : 0;
+	return (!isdigit(*structPosition)) ? (printf("Spot is already occupied!\n"), 1) : 0;
 	
 }
 
