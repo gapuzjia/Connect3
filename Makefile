@@ -1,2 +1,1 @@
-all:
-	gcc -o game main.c
+all:	; gcc -o TicTacToe TicTacToe.c
