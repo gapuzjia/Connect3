@@ -84,13 +84,15 @@ int checkWinner(char player, GameBoard gameBoard)
 
 
 int main() {
-	
+
+	//declare const variables
+	const int NUM_PLAYERS = 2;
+	const int MAX_TURNS = 9;	
+
 	//declare all variables
 	int isPlaying = 1;
 	int position;
 	char player;
-	int numPlayers = 2;
-	int maxTurns = 9;
 
 	//tracks number of turns, odd is X, even is O
 	int turns = 1; 
@@ -105,7 +107,7 @@ int main() {
 	{
 
 		//determine who's turn it is
-		(turns % numPlayers != 0) ? (player = 'X') : (player = 'O');
+		(turns % NUM_PLAYERS != 0) ? (player = 'X') : (player = 'O');
 
 		//print gameBoard
 		printGameBoard(gameBoard);
@@ -126,7 +128,7 @@ int main() {
 		isPlaying = !checkWinner(player, gameBoard);
 
 		//reaching turns and no winner means a draw game
-		(isPlaying && turns == maxTurns) ? (printf("Draw Game!\n")), isPlaying = 0 : (void)0;
+		(isPlaying && turns == MAX_TURNS) ? (printf("Draw Game!\n")), isPlaying = 0 : (void)0;
 
 		
 		//reset flags and update turn counter
