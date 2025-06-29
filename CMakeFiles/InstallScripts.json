@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/jia/TicTacToe/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

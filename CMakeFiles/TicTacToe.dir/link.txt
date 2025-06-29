@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/TicTacToe.dir/link.d CMakeFiles/TicTacToe.dir/TicTacToe.c.o -o TicTacToe
