@@ -89,16 +89,14 @@ int main() {
 	int isPlaying = 1;
 	int position;
 	char player;
+	int numPlayers = 2;
+	int maxTurns = 9;
 
 	//tracks number of turns, odd is X, even is O
 	int turns = 1; 
 	
-	//-----MODIFIED----- scratch the 2d array, implement with 1d array instead
-	//char gameBoard[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
 	//create instance of a gameboard
 	GameBoard gameBoard = {'1','2','3','4','5','6','7','8','9'};
-
 
 	printf("TicTacToe: \n");
 	
@@ -107,7 +105,7 @@ int main() {
 	{
 
 		//determine who's turn it is
-		(turns % 2 != 0) ? (player = 'X') : (player = 'O');
+		(turns % numPlayers != 0) ? (player = 'X') : (player = 'O');
 
 		//print gameBoard
 		printGameBoard(gameBoard);
@@ -127,8 +125,8 @@ int main() {
 		//check if a player won
 		isPlaying = !checkWinner(player, gameBoard);
 
-		//9 turns and no winner means a draw game
-		(isPlaying && turns == 9) ? (printf("Draw Game!\n")), isPlaying = 0 : (void)0;
+		//reaching turns and no winner means a draw game
+		(isPlaying && turns == maxTurns) ? (printf("Draw Game!\n")), isPlaying = 0 : (void)0;
 
 		
 		//reset flags and update turn counter
